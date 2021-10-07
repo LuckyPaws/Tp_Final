@@ -28,13 +28,13 @@ class Commentaire
     private $datePublication;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="poster")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Poster")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $utilisateur;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="commenter")
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="Commenter")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
@@ -68,14 +68,14 @@ class Commentaire
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUser(): ?User
     {
-        return $this->utilisateur;
+        return $this->user;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setUser(?User $user): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->user = $user;
 
         return $this;
     }

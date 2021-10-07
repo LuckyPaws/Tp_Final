@@ -34,25 +34,27 @@ class Article
      */
     private $image;
 
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Ecrire")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="article")
+     */
+    private $Commenter;
+
     /**
      * @ORM\Column(type="date")
      */
     private $datePublication;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="ecrire")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $auteur;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="article")
-     */
-    private $commenter;
-
     public function __construct()
     {
-        $this->commenter = new ArrayCollection();
+        $this->Commenter = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,26 +98,16 @@ class Article
         return $this;
     }
 
-    public function getDatePublication(): ?\DateTimeInterface
+
+
+    public function getUser(): ?User
     {
-        return $this->datePublication;
+        return $this->user;
     }
 
-    public function setDatePublication(\DateTimeInterface $datePublication): self
+    public function setUser(?User $user): self
     {
-        $this->datePublication = $datePublication;
-
-        return $this;
-    }
-
-    public function getAuteur(): ?Utilisateur
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(?Utilisateur $auteur): self
-    {
-        $this->auteur = $auteur;
+        $this->user = $user;
 
         return $this;
     }
@@ -125,13 +117,13 @@ class Article
      */
     public function getCommenter(): Collection
     {
-        return $this->commenter;
+        return $this->Commenter;
     }
 
     public function addCommenter(Commentaire $commenter): self
     {
-        if (!$this->commenter->contains($commenter)) {
-            $this->commenter[] = $commenter;
+        if (!$this->Commenter->contains($commenter)) {
+            $this->Commenter[] = $commenter;
             $commenter->setArticle($this);
         }
 
@@ -140,12 +132,24 @@ class Article
 
     public function removeCommenter(Commentaire $commenter): self
     {
-        if ($this->commenter->removeElement($commenter)) {
+        if ($this->Commenter->removeElement($commenter)) {
             // set the owning side to null (unless already changed)
             if ($commenter->getArticle() === $this) {
                 $commenter->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDatePublication(): ?\DateTimeInterface
+    {
+        return $this->datePublication;
+    }
+
+    public function setDatePublication(\DateTimeInterface $datePublication): self
+    {
+        $this->datePublication = $datePublication;
 
         return $this;
     }
