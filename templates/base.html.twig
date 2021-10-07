@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}LeMonde | {% endblock %}</title>
+        <title>{% block title %}LeMonde {% endblock %}</title>
 
 
         <!-- Required meta tags -->
@@ -39,7 +39,14 @@
             crossorigin="anonymous"></script>
         {% endblock %}
 
-        
+         {% block nav %}
+        <nav class="nav justify-content-center">
+	        <a class="nav-link" href="{{path('home')}}">Accueil</a>
+            <a class="nav-link" href="{{path('cgu')}}">CGU</a>
+        </nav>
+         {% endblock %}
+
+
     </head>
     <body>
         {% block body %}{% endblock %}
