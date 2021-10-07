@@ -52,6 +52,7 @@
         {% if app.user %}
             <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
             <a class="nav-link" href="{{ path('article_index') }}">Liste des articles</a>
+            <a class="nav-link" href="{{ path('contact') }}">Contact</a>
             {% else %}
             <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
             {% endif %}
